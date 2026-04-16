@@ -1,5 +1,6 @@
 using KeeAuditPlugin.Config;
 using KeePass.Plugins;
+using KeePassLib.Interfaces;
 
 namespace KeeAuditPlugin
 {
@@ -12,23 +13,20 @@ namespace KeeAuditPlugin
         {
             if (host == null) return false;
             _host = host;
-            var logger = _host.MainWindow.CreateShowWarningsLogger();
-            logger.StartLogging("KeeAuditPlugin", true);
-            logger.SetText("Initializing KeeAuditPlugin...", KeePassLib.Interfaces.LogStatusType.Info);
 
             var rabbitMQConfig = new RabbitMQConnectionConfig(host.CustomConfig);
+            IStatusLogger logger = _host.MainWindow.CreateShowWarningsLogger();
             try
             {
-                logger.SetText("Connecting to RabbitMQ...", KeePassLib.Interfaces.LogStatusType.Info);
-                _auditService = new AuditService(rabbitMQConfig);
-                logger.SetText("KeeAuditPlugin initialized successfully.", KeePassLib.Interfaces.LogStatusType.Info);
+                logger.StartLogging("KeeAuditPlugin", true);
+                _auditService = new AuditService(rabbitMQConfig, _host, logger);
             }
             catch (FailedToConnectException ex)
             {
                 logger.SetText(ex.Message, KeePassLib.Interfaces.LogStatusType.Error);
                 return false;
             }
-            catch (FailedToCreateChannelException ex)
+            catch (FailedToDeclareQueueException ex)
             {
                 logger.SetText(ex.Message, KeePassLib.Interfaces.LogStatusType.Error);
                 return false;
