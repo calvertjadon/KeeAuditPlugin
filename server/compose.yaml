@@ -11,6 +11,20 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/18/docker
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    restart: always
+    hostname: rabbit001
+    container_name: some-rabbit
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+    volumes:
+      - mqdata:/var/lib/rabbitmq
+
 volumes:
   pgdata:
-    driver: local
+  mqdata:
