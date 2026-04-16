@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/calvertjadon/KeeAuditPlugin/internal/pubsub"
-	"github.com/calvertjadon/KeeAuditPlugin/internal/routing"
+	"github.com/calvertjadon/KeeAuditPlugin/server/internal/pubsub"
+	"github.com/calvertjadon/KeeAuditPlugin/server/internal/routing"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
