@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37203.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeeAuditPlugin", "KeeAuditPlugin\KeeAuditPlugin.csproj", "{944D4996-8125-466F-B0DB-35C7F3B57218}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{944D4996-8125-466F-B0DB-35C7F3B57218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{944D4996-8125-466F-B0DB-35C7F3B57218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{944D4996-8125-466F-B0DB-35C7F3B57218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{944D4996-8125-466F-B0DB-35C7F3B57218}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2EAA5F9E-0767-44EE-91D7-2CF460C6F310}
+	EndGlobalSection
+EndGlobal
