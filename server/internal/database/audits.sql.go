@@ -11,6 +11,26 @@ import (
 	"github.com/google/uuid"
 )
 
+const createAudit = `-- name: CreateAudit :one
+insert into audits (
+  id,
+  created_at,
+  updated_at
+) values (
+  $1,
+  now(),
+  now()
+)
+returning id, created_at, updated_at
+`
+
+func (q *Queries) CreateAudit(ctx context.Context, id uuid.UUID) (Audit, error) {
+	row := q.db.QueryRowContext(ctx, createAudit, id)
+	var i Audit
+	err := row.Scan(&i.ID, &i.CreatedAt, &i.UpdatedAt)
+	return i, err
+}
+
 const getAudit = `-- name: GetAudit :one
 select id, created_at, updated_at from audits
 where id = $1
