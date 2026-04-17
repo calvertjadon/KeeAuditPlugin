@@ -5,6 +5,7 @@ import (
 
 	"github.com/joho/godotenv"
 
+	"github.com/calvertjadon/KeeAuditPlugin/server/internal/api"
 	"github.com/calvertjadon/KeeAuditPlugin/server/internal/database"
 	_ "github.com/lib/pq"
 )
@@ -35,10 +36,12 @@ func main() {
 	defer r.Conn.Close()
 	defer log.Println("the server is shutting down")
 
-	ch, err := r.Conn.Channel()
-	if err != nil {
-		log.Fatal(err)
-	}
+	app := api.NewApp(cfg.db, r.Conn)
+	app.Run()
 
-	enterRepl(ch)
+	// ch, err := r.Conn.Channel()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// enterRepl(ch)
 }

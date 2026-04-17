@@ -2,6 +2,10 @@
 select * from specifications
 where code = $1;
 
+-- name: GetSpecificationsByCodes :many
+select * from specifications
+where code = ANY($1::text[]);
+
 -- name: CreateSpecification :one
 insert into specifications (
   id,
@@ -12,4 +16,4 @@ insert into specifications (
   $1,
   $2
 )
-returning *;
+returning id;

@@ -30,9 +30,9 @@ create table audit_results (
 
 create table audit_result_failed_specs (
   audit_result_id uuid not null references audit_results(id) on delete cascade,
-  specifications_id uuid not null references specifications(id),
+  specification_id uuid not null references specifications(id),
 
-  primary key (audit_result_id, specifications_id)
+  primary key (audit_result_id, specification_id)
 );
 
 -- +goose Down

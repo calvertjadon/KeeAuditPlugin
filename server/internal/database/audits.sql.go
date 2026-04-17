@@ -17,18 +17,18 @@ insert into audits (
   created_at,
   updated_at
 ) values (
-  $1,
+  gen_random_uuid(),
   now(),
   now()
 )
-returning id, created_at, updated_at
+returning id
 `
 
-func (q *Queries) CreateAudit(ctx context.Context, id uuid.UUID) (Audit, error) {
-	row := q.db.QueryRowContext(ctx, createAudit, id)
-	var i Audit
-	err := row.Scan(&i.ID, &i.CreatedAt, &i.UpdatedAt)
-	return i, err
+func (q *Queries) CreateAudit(ctx context.Context) (uuid.UUID, error) {
+	row := q.db.QueryRowContext(ctx, createAudit)
+	var id uuid.UUID
+	err := row.Scan(&id)
+	return id, err
 }
 
 const getAudit = `-- name: GetAudit :one

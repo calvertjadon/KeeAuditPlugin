@@ -8,8 +8,9 @@ insert into audits (
   created_at,
   updated_at
 ) values (
-  $1,
+  gen_random_uuid(),
   now(),
   now()
 )
-returning *;
+returning id;
+

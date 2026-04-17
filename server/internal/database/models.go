@@ -25,13 +25,13 @@ type AuditResult struct {
 }
 
 type AuditResultFailedSpec struct {
-	AuditResultID    uuid.UUID
-	SpecificationsID uuid.UUID
+	AuditResultID   uuid.UUID
+	SpecificationID uuid.UUID
 }
 
 type AuditSpecification struct {
-	AuditID          uuid.UUID
-	SpecificationsID uuid.UUID
+	AuditID         uuid.UUID
+	SpecificationID uuid.UUID
 }
 
 type AuditUser struct {

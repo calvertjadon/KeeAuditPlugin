@@ -7,6 +7,9 @@ package database
 
 import (
 	"context"
+
+	"github.com/google/uuid"
+	"github.com/lib/pq"
 )
 
 const createSpecification = `-- name: CreateSpecification :one
@@ -19,7 +22,7 @@ insert into specifications (
   $1,
   $2
 )
-returning id, code, description
+returning id
 `
 
 type CreateSpecificationParams struct {
@@ -27,11 +30,11 @@ type CreateSpecificationParams struct {
 	Description string
 }
 
-func (q *Queries) CreateSpecification(ctx context.Context, arg CreateSpecificationParams) (Specification, error) {
+func (q *Queries) CreateSpecification(ctx context.Context, arg CreateSpecificationParams) (uuid.UUID, error) {
 	row := q.db.QueryRowContext(ctx, createSpecification, arg.Code, arg.Description)
-	var i Specification
-	err := row.Scan(&i.ID, &i.Code, &i.Description)
-	return i, err
+	var id uuid.UUID
+	err := row.Scan(&id)
+	return id, err
 }
 
 const getSpecificationByCode = `-- name: GetSpecificationByCode :one
@@ -44,4 +47,32 @@ func (q *Queries) GetSpecificationByCode(ctx context.Context, code string) (Spec
 	var i Specification
 	err := row.Scan(&i.ID, &i.Code, &i.Description)
 	return i, err
+}
+
+const getSpecificationsByCodes = `-- name: GetSpecificationsByCodes :many
+select id, code, description from specifications
+where code = ANY($1::text[])
+`
+
+func (q *Queries) GetSpecificationsByCodes(ctx context.Context, dollar_1 []string) ([]Specification, error) {
+	rows, err := q.db.QueryContext(ctx, getSpecificationsByCodes, pq.Array(dollar_1))
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Specification
+	for rows.Next() {
+		var i Specification
+		if err := rows.Scan(&i.ID, &i.Code, &i.Description); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
