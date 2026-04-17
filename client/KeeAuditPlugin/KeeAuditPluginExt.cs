@@ -1,6 +1,7 @@
 using KeeAuditPlugin.Config;
 using KeePass.Plugins;
 using KeePassLib.Interfaces;
+using System;
 
 namespace KeeAuditPlugin
 {

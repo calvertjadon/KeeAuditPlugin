@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeeAuditTests", "KeeAuditTests\KeeAuditTests.csproj", "{688B0DF9-DF84-4192-A02C-DCAC22E01DB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeeAuditLib", "KeeAuditLib\KeeAuditLib.csproj", "{FF5E2B37-5B3E-47EE-87CB-D2D4E1B7592B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,14 @@ Global
 		{944D4996-8125-466F-B0DB-35C7F3B57218}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{944D4996-8125-466F-B0DB-35C7F3B57218}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{944D4996-8125-466F-B0DB-35C7F3B57218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{688B0DF9-DF84-4192-A02C-DCAC22E01DB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{688B0DF9-DF84-4192-A02C-DCAC22E01DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{688B0DF9-DF84-4192-A02C-DCAC22E01DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{688B0DF9-DF84-4192-A02C-DCAC22E01DB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF5E2B37-5B3E-47EE-87CB-D2D4E1B7592B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF5E2B37-5B3E-47EE-87CB-D2D4E1B7592B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF5E2B37-5B3E-47EE-87CB-D2D4E1B7592B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF5E2B37-5B3E-47EE-87CB-D2D4E1B7592B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

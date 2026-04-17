@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="KeePass">
-      <HintPath>..\..\..\..\..\..\Program Files\KeePass Password Safe 2\KeePass.exe</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\KeePass Password Safe 2\KeePass.exe</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=6.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <HintPath>..\packages\RabbitMQ.Client.6.8.1\lib\net462\RabbitMQ.Client.dll</HintPath>
@@ -71,9 +71,17 @@
     <Compile Include="KeeAuditPluginExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Config\RabbitMQConnectionConfig.cs" />
+    <Compile Include="ValidationResultDto.cs" />
+    <Compile Include="ValidationResultExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KeeAuditLib\KeeAuditLib.csproj">
+      <Project>{ff5e2b37-5b3e-47ee-87cb-d2d4e1b7592b}</Project>
+      <Name>KeeAuditLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

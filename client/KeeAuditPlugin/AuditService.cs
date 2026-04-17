@@ -4,18 +4,17 @@ using KeePassLib.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.Xml.Serialization;
 
 namespace KeeAuditPlugin
 {
     public sealed class AuditService
     {
-        private readonly Guid _clientId = Guid.NewGuid();
+        private readonly string _username = Environment.UserName;
         private readonly IConnection _conn = null;
         private readonly IModel _channel = null;
         private readonly IPluginHost _host = null;
         private readonly IStatusLogger _logger = null;
-        private string QueueName => $"keepass.{_clientId}";
+        private string QueueName => $"keepass.{_username}";
         private const string ExchangeName = "audit.commands";
 
         public AuditService(RabbitMQConnectionConfig rabbitMQConfig, IPluginHost host, IStatusLogger logger)
