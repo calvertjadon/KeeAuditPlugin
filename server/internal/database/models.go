@@ -29,6 +29,11 @@ type AuditResultFailedSpec struct {
 	SpecificationsID uuid.UUID
 }
 
+type AuditSpecification struct {
+	AuditID          uuid.UUID
+	SpecificationsID uuid.UUID
+}
+
 type AuditUser struct {
 	ID          uuid.UUID
 	AuditID     uuid.UUID
