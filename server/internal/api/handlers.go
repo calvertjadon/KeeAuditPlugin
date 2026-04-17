@@ -36,7 +36,7 @@ func (a *App) runAudit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	auditID, err := a.auditor.Trigger(params.codes)
+	auditID, err := a.auditor.Trigger(r.Context(), params.codes)
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, "failed to create audit", &err)
 		return
