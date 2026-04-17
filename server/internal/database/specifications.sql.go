@@ -9,6 +9,31 @@ import (
 	"context"
 )
 
+const createSpecification = `-- name: CreateSpecification :one
+insert into specifications (
+  id,
+  code,
+  description
+) values (
+  gen_random_uuid(),
+  $1,
+  $2
+)
+returning id, code, description
+`
+
+type CreateSpecificationParams struct {
+	Code        string
+	Description string
+}
+
+func (q *Queries) CreateSpecification(ctx context.Context, arg CreateSpecificationParams) (Specification, error) {
+	row := q.db.QueryRowContext(ctx, createSpecification, arg.Code, arg.Description)
+	var i Specification
+	err := row.Scan(&i.ID, &i.Code, &i.Description)
+	return i, err
+}
+
 const getSpecificationByCode = `-- name: GetSpecificationByCode :one
 select id, code, description from specifications
 where code = $1
