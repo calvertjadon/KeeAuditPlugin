@@ -15,3 +15,36 @@ type Audit struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
+
+type AuditResult struct {
+	ID          uuid.UUID
+	AuditUserID uuid.UUID
+	EntryID     uuid.UUID
+	EntryName   string
+	EntryPath   string
+}
+
+type AuditResultFailedSpec struct {
+	AuditResultID    uuid.UUID
+	SpecificationsID uuid.UUID
+}
+
+type AuditUser struct {
+	ID          uuid.UUID
+	AuditID     uuid.UUID
+	UserID      uuid.UUID
+	CompletedAt time.Time
+}
+
+type Specification struct {
+	ID          uuid.UUID
+	Code        string
+	Description string
+}
+
+type User struct {
+	ID        uuid.UUID
+	Username  string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}

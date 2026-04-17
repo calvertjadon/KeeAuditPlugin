@@ -39,10 +39,10 @@ func enterRepl(ch *amqp.Channel) {
 		var err error
 		switch words[0] {
 		case "test":
-			log.Println("sending pause message")
+			log.Println("sending audit command")
 			err = pubsub.PublishJSON(
 				ch,
-				routing.ExchangeAuditCommands,
+				routing.ExchangeTopic,
 				routing.RunAuditPrefix+".all",
 				payload{Message: "hello from go"},
 			)

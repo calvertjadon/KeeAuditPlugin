@@ -5,5 +5,5 @@ const (
 )
 
 const (
-	ExchangeAuditCommands = "audit.commands"
+	ExchangeTopic = "amq.topic"
 )
