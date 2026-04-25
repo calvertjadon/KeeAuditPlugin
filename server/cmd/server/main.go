@@ -26,7 +26,7 @@ func main() {
 		log.Fatalf("error connecting to database: %s", err)
 	}
 
-	client, err := mq.New(cfg.MQ.URL)
+	client, err := mq.NewClient(cfg.MQ.URL)
 	if err != nil {
 		log.Fatalf("error connecting to rabbitmq: %s", err)
 	}

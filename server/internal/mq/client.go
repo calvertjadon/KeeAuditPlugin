@@ -8,7 +8,7 @@ type Client struct {
 	*amqp.Connection
 }
 
-func New(url string) (*Client, error) {
+func NewClient(url string) (*Client, error) {
 	conn, err := amqp.Dial(url)
 	if err != nil {
 		return nil, err
