@@ -1,47 +1,46 @@
 package main
 
 import (
+	"database/sql"
 	"log"
+	"net/http"
 
 	"github.com/joho/godotenv"
 
 	"github.com/calvertjadon/KeeAuditPlugin/server/internal/api"
+	"github.com/calvertjadon/KeeAuditPlugin/server/internal/audit"
+	"github.com/calvertjadon/KeeAuditPlugin/server/internal/config"
 	"github.com/calvertjadon/KeeAuditPlugin/server/internal/database"
+	"github.com/calvertjadon/KeeAuditPlugin/server/internal/mq"
 	_ "github.com/lib/pq"
 )
-
-type apiConfig struct {
-	db *database.Queries
-}
 
 func main() {
 	log.Println("the server is starting up")
 
 	godotenv.Load()
+	cfg := config.Load()
 
-	r, err := newRabbitMQ(
-		"localhost",
-		5672,
-		"guest",
-		"guest",
-	)
+	db, err := sql.Open("postgres", cfg.DB.URL)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("error connecting to database: %s", err)
 	}
-	r.configureQueues()
 
-	cfg := &apiConfig{}
-	cfg.initDatabase()
+	client, err := mq.New(cfg.MQ.URL)
+	if err != nil {
+		log.Fatalf("error connecting to rabbitmq: %s", err)
+	}
 
-	defer r.Conn.Close()
-	defer log.Println("the server is shutting down")
+	p, err := mq.NewPublisher(client)
+	if err != nil {
+		log.Fatalf("error creating pub channel: %s", err)
+	}
 
-	app := api.NewApp(cfg.db, r.Conn)
-	app.Run()
+	auditRepo := database.NewAuditRepo(db)
 
-	// ch, err := r.Conn.Channel()
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// enterRepl(ch)
+	auditUseCase := audit.NewUseCase(auditRepo)
+	auditHandler := api.NewAuditHandler(auditUseCase, p)
+	router := api.NewRouter(auditHandler)
+
+	log.Fatal(http.ListenAndServe(":"+cfg.App.Port, router))
 }
