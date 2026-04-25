@@ -32,6 +32,7 @@ type AuditResultFailedSpec struct {
 type AuditSpecification struct {
 	AuditID         uuid.UUID
 	SpecificationID uuid.UUID
+	Threshold       int32
 }
 
 type AuditUser struct {

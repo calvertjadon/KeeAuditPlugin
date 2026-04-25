@@ -9,25 +9,20 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/lib/pq"
 )
 
 const attachAuditSpecs = `-- name: AttachAuditSpecs :exec
-with input_codes as (
-  select unnest($2::text[]) as code
-)
-insert into audit_specifications (audit_id,specification_id) 
-select $1, s.id
-from specifications s
-join input_codes i on i.code = s.code
+insert into audit_specifications (audit_id,specification_id, threshold) 
+select $1, $2, $3
 `
 
 type AttachAuditSpecsParams struct {
-	AuditID uuid.UUID
-	Column2 []string
+	AuditID         uuid.UUID
+	SpecificationID uuid.UUID
+	Threshold       int32
 }
 
 func (q *Queries) AttachAuditSpecs(ctx context.Context, arg AttachAuditSpecsParams) error {
-	_, err := q.db.ExecContext(ctx, attachAuditSpecs, arg.AuditID, pq.Array(arg.Column2))
+	_, err := q.db.ExecContext(ctx, attachAuditSpecs, arg.AuditID, arg.SpecificationID, arg.Threshold)
 	return err
 }

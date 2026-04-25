@@ -3,8 +3,8 @@ package audit
 import "github.com/google/uuid"
 
 type StartAuditCommand struct {
-	AuditID uuid.UUID `json:"audit_id"`
-	Codes   []string  `json:"codes"`
+	AuditID      uuid.UUID               `json:"audit_id"`
+	Requirements []ComplexityRequirement `json:"requirements"`
 }
 
 type CommandPublisher interface {
@@ -13,7 +13,7 @@ type CommandPublisher interface {
 
 func NewStartAuditCommand(a *Audit) *StartAuditCommand {
 	return &StartAuditCommand{
-		AuditID: a.ID,
-		Codes:   a.Codes,
+		AuditID:      a.ID,
+		Requirements: a.Requirements,
 	}
 }

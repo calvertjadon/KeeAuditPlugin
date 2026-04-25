@@ -20,10 +20,10 @@ func NewUseCase(r Repository) *UseCase {
 	}
 }
 
-func (uc *UseCase) StartAudit(ctx context.Context, codes []string) (*Audit, error) {
+func (uc *UseCase) StartAudit(ctx context.Context, requirements []ComplexityRequirement) (*Audit, error) {
 	a := &Audit{
-		ID:    uuid.New(),
-		Codes: codes,
+		ID:           uuid.New(),
+		Requirements: requirements,
 	}
 
 	if err := uc.repo.Save(ctx, a); err != nil {

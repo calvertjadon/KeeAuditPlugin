@@ -25,7 +25,7 @@ func (h *auditHandler) HandleCreateAudit(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	a, err := h.uc.StartAudit(r.Context(), params.Codes)
+	a, err := h.uc.StartAudit(r.Context(), params.ToComplexityRequirement())
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, "failed to create audit", &err)
 		return
