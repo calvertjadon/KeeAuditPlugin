@@ -36,6 +36,13 @@ func main() {
 		log.Fatalf("error creating pub channel: %s", err)
 	}
 
+	c := mq.ResultsConsumer{
+		Exchange:  "amq.topic",
+		QueueName: "audit.results",
+		Key:       "audit.results.*",
+	}
+	c.Subscribe(client)
+
 	auditRepo := database.NewAuditRepo(db)
 
 	auditUseCase := audit.NewUseCase(auditRepo)

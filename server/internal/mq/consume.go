@@ -23,6 +23,12 @@ const (
 	NackDiscard
 )
 
+type consumer[T any] interface {
+	handle(T) AckType
+	unmarshal([]byte) (T, error)
+	Subscribe() error
+}
+
 func DeclareAndBind(
 	conn *amqp.Connection,
 	exchange,
